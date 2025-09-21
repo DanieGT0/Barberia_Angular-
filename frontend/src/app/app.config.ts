@@ -20,23 +20,16 @@ export const appConfig: ApplicationConfig = {
         clientId: environment.auth0.clientId,
         authorizationParams: {
           redirect_uri: environment.auth0.redirectUri,
-          audience: environment.auth0.audience,
-          scope: 'openid profile email'
+          scope: 'openid profile email',
+          audience: 'https://dev-q4jyr4x3f1gn43ed.us.auth0.com/api/v2/'
         },
-        errorPath: environment.auth0.errorPath,
         httpInterceptor: {
           allowedList: [
-            {
-              uri: `${environment.api.baseUrl}/*`,
-              tokenOptions: {
-                authorizationParams: {
-                  audience: environment.auth0.audience,
-                  scope: 'openid profile email'
-                }
-              }
-            }
+            'http://localhost:8080/api/*'
           ]
-        }
+        },
+        cacheLocation: 'localstorage',
+        useRefreshTokens: true
       })
     )
   ]

@@ -136,8 +136,27 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // The AppAuthService will automatically handle user synchronization
-    // when authentication state changes
+    console.log('AppComponent iniciado');
+
+    // Debug Auth0 state
+    this.auth.isLoading$.subscribe(loading => {
+      console.log('Auth0 Loading:', loading);
+    });
+
+    this.auth.isAuthenticated$.subscribe(isAuth => {
+      console.log('Auth0 IsAuthenticated:', isAuth);
+    });
+
+    this.auth.error$.subscribe(error => {
+      console.log('Auth0 Error:', error);
+      if (error) {
+        console.error('Error detallado de Auth0:', error);
+      }
+    });
+
+    this.auth.user$.subscribe(user => {
+      console.log('Auth0 User:', user);
+    });
   }
 
   login(): void {

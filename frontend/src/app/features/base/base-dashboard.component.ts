@@ -18,6 +18,7 @@ export interface DashboardCard {
 @Component({
   selector: 'app-base-dashboard',
   standalone: true,
+  inputs: ['themeClass'],
   imports: [
     CommonModule,
     MatCardModule,
@@ -25,7 +26,7 @@ export interface DashboardCard {
     MatButtonModule
   ],
   template: `
-    <div class="dashboard-container" *ngIf="currentUser$ | async as user">
+    <div class="dashboard-container" [class]="themeClass" *ngIf="currentUser$ | async as user">
       <!-- Welcome Section -->
       <mat-card class="welcome-card">
         <mat-card-header>
@@ -180,6 +181,7 @@ export interface DashboardCard {
 })
 export class BaseDashboardComponent implements OnInit {
   currentUser$: Observable<User | null>;
+  themeClass = '';
 
   constructor(protected authService: AppAuthService) {
     this.currentUser$ = this.authService.currentUser$;
